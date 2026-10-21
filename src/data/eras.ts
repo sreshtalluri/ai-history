@@ -8,6 +8,7 @@ export const eras = {
     summary:
       'Long before computers existed, people imagined machines that could reason. A mathematician wrote the first program for a machine that was never finished, and a playwright invented the word "robot".',
     mood: 'steady',
+    accent: '#d4a86a',
   },
   foundations: {
     title: 'Foundations',
@@ -16,6 +17,7 @@ export const eras = {
     summary:
       'Alan Turing defines what a computer is, before one exists. Researchers model the brain as an electrical circuit. By 1950 the question is out in the open: could a machine think?',
     mood: 'steady',
+    accent: '#9b7cf6',
   },
   birth: {
     title: 'Birth & Golden Age',
@@ -24,6 +26,7 @@ export const eras = {
     summary:
       'A 1956 summer workshop at Dartmouth names the field "artificial intelligence". Early programs prove theorems, play checkers and chat. Researchers predict human-level AI within a generation.',
     mood: 'boom',
+    accent: '#f5a03b',
   },
   winters: {
     title: 'Winters & Expert Systems',
@@ -32,6 +35,7 @@ export const eras = {
     summary:
       'The promises are too big, so funding dries up. Rule-based "expert systems" bring a business boom in the 1980s and then a second crash. Quietly, the core ideas of neural networks are worked out in this period.',
     mood: 'winter',
+    accent: '#6aa8ff',
   },
   ml: {
     title: 'Machine Learning Rises',
@@ -40,6 +44,7 @@ export const eras = {
     summary:
       'AI stops trying to write the rules by hand and starts learning them from data. A computer beats the world chess champion, robot cars cross a desert, and the internet supplies data at a scale no one had before.',
     mood: 'steady',
+    accent: '#3fbf7f',
   },
   deep: {
     title: 'Deep Learning Revolution',
@@ -48,6 +53,7 @@ export const eras = {
     summary:
       'In 2012 a neural network trained on gaming graphics cards wins an image-recognition contest by a huge margin. Within four years, deep learning leads in vision, speech and translation, and AlphaGo beats one of the best Go players in the world.',
     mood: 'boom',
+    accent: '#2bc0cf',
   },
   transformers: {
     title: 'Transformers & Scale',
@@ -56,6 +62,7 @@ export const eras = {
     summary:
       'Google researchers publish the Transformer architecture. Labs find that making models bigger and training them on more text reliably makes them better. GPT-3 shows that one model can do many tasks from a few examples, and AlphaFold largely solves protein structure prediction.',
     mood: 'boom',
+    accent: '#7f80ff',
   },
   generative: {
     title: 'Generative AI Goes Mainstream',
@@ -64,6 +71,7 @@ export const eras = {
     summary:
       'Image generators go viral, and ChatGPT becomes one of the fastest-growing consumer apps ever. GPT-4, Claude and Gemini start a race between frontier labs. Governments begin to respond.',
     mood: 'boom',
+    accent: '#ee6ca9',
   },
   reasoning: {
     title: 'Reasoning & Agents',
@@ -72,6 +80,7 @@ export const eras = {
     summary:
       'Models learn to "think" before they answer, use computers, and write and run code for hours. Video gets sound, image editing gets close to photographic, and an open model from China briefly knocks hundreds of billions off Nvidia\'s value.',
     mood: 'boom',
+    accent: '#19c491',
   },
   frontier: {
     title: 'The Frontier Now',
@@ -80,6 +89,7 @@ export const eras = {
     summary:
       'The most capable models are now strong enough at hacking that labs hold some back, and governments step in directly. Always-on personal agents launch, and labs publicly argue over whether "AGI" has arrived. Coverage of this year is still settling, so check the sources.',
     mood: 'boom',
+    accent: '#ff6a55',
   },
 } as const satisfies Record<string, Era>;
 

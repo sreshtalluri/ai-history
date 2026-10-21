@@ -6,4 +6,11 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   base: './',
   plugins: [react()],
+  build: {
+    // three.js is ~500 kB minified (~130 kB gzipped) and only loads with the journey stage.
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: { manualChunks: { three: ['three'] } },
+    },
+  },
 });

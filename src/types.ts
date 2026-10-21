@@ -20,6 +20,8 @@ export interface Era {
   summary: string;
   /** Booms and winters are shaded differently on the timeline. */
   mood: 'boom' | 'winter' | 'steady';
+  /** Chapter accent colour: stage lighting and highlights. */
+  accent: string;
 }
 
 export interface Person {

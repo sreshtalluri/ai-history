@@ -32,7 +32,7 @@ const themeIcon: Record<Theme, string> = { system: '◐', light: '☀', dark: '�
 export function App() {
   const route = useRoute();
   const [lens, setLens] = usePersistentState('ai-history:lens', lenses, 'everyone');
-  const [theme, setTheme] = usePersistentState('ai-history:theme', themes, 'system');
+  const [theme, setTheme] = usePersistentState('ai-history:theme', themes, 'dark');
   const [filters, setFilters] = useState<Filters>(noFilters);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export function App() {
         </div>
       </header>
 
-      <main id="main">
+      <main id="main" className={route.page === 'journey' ? 'is-stage' : undefined}>
         {route.page === 'home' && (
           <Home
             onTurningPoints={() => {
@@ -117,7 +117,7 @@ export function App() {
         {route.page === 'sources' && <Bibliography />}
       </main>
 
-      <footer className="site-footer">
+      <footer className="site-footer" hidden={route.page === 'journey'}>
         <p>
           Built as an open learning resource. History before 2024 is well documented; 2025–26 entries cite news
           sources and may change.{' '}
