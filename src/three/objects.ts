@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import type { TrackId } from '../data/tracks';
+import { earlyHeroes } from './heroes-early';
+import { modernHeroes } from './heroes-modern';
 import {
   ball,
   box,
@@ -448,9 +450,11 @@ function gpuChip(): Built {
 
 /** Unique objects for specific moments. Everything else falls back to its thread's object. */
 export const heroObjects: Record<string, Builder> = {
+  ...earlyHeroes,
   'turing-machine': turingMachine,
   'deep-blue': deepBlue,
   chatgpt: chatGpt,
+  ...modernHeroes,
 };
 
 export const trackObjects: Record<TrackId, Builder> = {

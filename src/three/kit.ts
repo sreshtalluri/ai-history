@@ -176,3 +176,44 @@ export const easeOutBack = (t: number) => {
   const c3 = c1 + 1;
   return 1 + c3 * (t - 1) ** 3 + c1 * (t - 1) ** 2;
 };
+
+/** A canvas-backed texture. Call `redraw()` after drawing again to animate it. */
+export function canvasTexture(
+  w: number,
+  h: number,
+  draw: (ctx: CanvasRenderingContext2D, w: number, h: number) => void,
+): THREE.CanvasTexture & { redraw: (fn?: (ctx: CanvasRenderingContext2D, w: number, h: number) => void) => void } {
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d')!;
+  draw(ctx, w, h);
+  const tex = new THREE.CanvasTexture(canvas) as THREE.CanvasTexture & {
+    redraw: (fn?: (ctx: CanvasRenderingContext2D, w: number, h: number) => void) => void;
+  };
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  tex.redraw = (fn = draw) => {
+    fn(ctx, w, h);
+    tex.needsUpdate = true;
+  };
+  return tex;
+}
+
+/** A flat panel showing a canvas texture (screens, boards, pictures). */
+export function screen(tex: THREE.Texture, size: readonly [number, number], pos?: Vec, rot?: Vec, emissive = 0): THREE.Mesh {
+  const mat = new THREE.MeshStandardMaterial({
+    map: tex,
+    roughness: 0.6,
+    emissive: emissive ? '#ffffff' : '#000000',
+    emissiveMap: emissive ? tex : null,
+    emissiveIntensity: emissive,
+  });
+  return place(new THREE.Mesh(new THREE.PlaneGeometry(size[0], size[1]), mat), pos, rot);
+}
+
+/** A smooth tube along a list of points (ribbons, cables, curves). */
+export function tube(points: readonly Vec[], r: number, material: THREE.Material | Color, closed = false): THREE.Mesh {
+  const curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p)), closed);
+  return new THREE.Mesh(new THREE.TubeGeometry(curve, points.length * 12, r, 12, closed), toMat(material));
+}
