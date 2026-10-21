@@ -191,7 +191,7 @@ export class Stage {
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     // Pull back on narrow screens so wide objects still fit.
-    const dist = 6 * Math.max(1, 1.3 / this.camera.aspect);
+    const dist = 6 * Math.max(1, 1.5 / this.camera.aspect);
     this.camera.position.set(0, 0.8 * (dist / 6), dist);
     this.camera.lookAt(0, -0.05, 0);
     this.camera.updateProjectionMatrix();

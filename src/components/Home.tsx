@@ -1,6 +1,10 @@
-import type { CSSProperties } from 'react';
-import { citationIds, eras, eraIds, events, people, shifts, tracks } from '../data';
+import { useEffect, useState, type CSSProperties } from 'react';
+import { citationIds, eras, eraIds, eventById, events, people, shifts, tracks } from '../data';
 import { href, type Route } from '../router';
+import { StageCanvas } from './StageCanvas';
+
+/** Famous moments the home page cycles through on its 3D stage. */
+const showcase = ['turing-machine', 'eliza', 'deep-blue', 'alphago', 'transformer', 'chatgpt', 'claude-code', 'veo3-genie3'];
 
 const steps: { n: number; to: Route; title: string; time: string; body: string }[] = [
   {
@@ -37,10 +41,20 @@ export function Home({ onTurningPoints }: { onTurningPoints: () => void }) {
   const firstOfEra = (eraId: (typeof eraIds)[number]) => events.find((e) => e.era === eraId);
   const milestones = events.filter((e) => e.milestone);
   const probability = shifts.find((s) => s.id === 'certain-to-probable')!;
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = window.setInterval(() => setSlide((s) => (s + 1) % showcase.length), 4500);
+    return () => window.clearInterval(timer);
+  }, []);
+  const featured = eventById.get(showcase[slide]!)!;
+  const featuredEra = eras[featured.era];
 
   return (
     <div className="home">
-      <section className="hero">
+      <section className="hero" style={{ '--accent': featuredEra.accent } as CSSProperties}>
+        <div className="hero-glow" aria-hidden="true" />
+        <div className="hero-copy">
         <p className="kicker">An interactive history · 1843 → 2026</p>
         <h1>
           How machines learned to <span className="grad">think</span>, <span className="grad">see</span>,{' '}
@@ -61,6 +75,34 @@ export function Home({ onTurningPoints }: { onTurningPoints: () => void }) {
           <button type="button" className="button ghost" onClick={onTurningPoints}>
             Just the {milestones.length} turning points
           </button>
+        </div>
+        </div>
+        <div className="hero-object">
+          <StageCanvas
+            eventId={featured.id}
+            track={featured.tracks[0]}
+            direction={1}
+            accent={featuredEra.accent}
+            label={featured.title}
+          />
+          <a className="hero-object-caption" href={href({ page: 'journey', id: featured.id })} key={featured.id}>
+            <span className="mono">{featured.year}</span>
+            <strong>{featured.title}</strong>
+            <span aria-hidden="true">→</span>
+          </a>
+          <div className="hero-dots" role="tablist" aria-label="Featured moments">
+            {showcase.map((id, i) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={i === slide}
+                aria-label={eventById.get(id)!.title}
+                className={i === slide ? 'is-active' : undefined}
+                onClick={() => setSlide(i)}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -116,7 +158,7 @@ export function Home({ onTurningPoints }: { onTurningPoints: () => void }) {
             const start = firstOfEra(eraId);
             const count = events.filter((e) => e.era === eraId).length;
             return (
-              <li key={eraId}>
+              <li key={eraId} style={{ '--accent': era.accent } as CSSProperties}>
                 <a className={`chapter-card mood-${era.mood}`} href={start ? href({ page: 'journey', id: start.id }) : '#/'}>
                   <span className="chapter-num">{String(i + 1).padStart(2, '0')}</span>
                   <span className="chapter-years">

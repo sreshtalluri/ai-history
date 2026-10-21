@@ -68,6 +68,8 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Decorative glows bleed past the content column; clip (unlike hidden) keeps sticky headers working. */
+  overflow-x: clip;
 }
 
 body {
@@ -78,7 +80,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {
@@ -2316,7 +2318,7 @@ main.is-stage {
   font-family: var(--display);
   font-size: clamp(2rem, 5.2vw, 3.6rem);
   font-weight: 800;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
   line-height: 1.02;
   text-wrap: balance;
 }
@@ -2574,4 +2576,348 @@ main.is-stage {
 }
 .details-refs .ref-list {
   gap: 1.2rem;
+}
+
+/* ═══════════════════ Cinematic design layer (all pages) ═══════════════════ */
+:root {
+  --glass: color-mix(in srgb, var(--ink) 3.5%, transparent);
+  --glass-strong: color-mix(in srgb, var(--ink) 6%, transparent);
+  --hairline: color-mix(in srgb, var(--ink) 9%, transparent);
+  --radius: 20px;
+}
+
+h1,
+h2,
+h3,
+.brand,
+.section-title,
+.chapter-title,
+.path-title,
+.stat-value {
+  font-family: var(--display);
+}
+
+/* Header: thin glass bar */
+.site-header {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: saturate(1.4) blur(18px);
+  border-bottom-color: var(--hairline);
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+.site-nav a {
+  font-size: 0.86rem;
+}
+.site-nav a[aria-current='page'] {
+  background: var(--glass-strong);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--hairline);
+}
+.site-nav a[aria-current='page'] .nav-step {
+  background: var(--ink);
+  color: var(--bg);
+}
+.segmented {
+  background: var(--glass);
+  border-color: var(--hairline);
+}
+
+/* Buttons: white pill primary, glass secondary */
+.button {
+  background: var(--glass);
+  border-color: var(--hairline);
+  backdrop-filter: blur(10px);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.button:hover {
+  background: var(--glass-strong);
+  border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+  transform: translateY(-1px);
+}
+.button.primary {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: transparent;
+}
+.button.primary:hover {
+  background: var(--ink);
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--accent, var(--brand)) 35%, transparent);
+}
+
+/* Cards: glass with a hairline and a soft hover glow */
+.chapter-card,
+.path-step,
+.track-grid li,
+.person-card,
+.lab-card,
+.problem-card,
+.shift-card,
+.shift-toc a,
+.moment a,
+.latest-list a,
+.demo-side,
+.big-idea,
+.ft-box {
+  background: var(--glass);
+  border: 1px solid var(--hairline);
+  box-shadow: none;
+}
+.chapter-card,
+.path-step,
+.person-card,
+.lab-card,
+.problem-card,
+.shift-card {
+  border-radius: var(--radius);
+}
+.chapter-card:hover,
+.path-step:hover,
+.latest-list a:hover,
+.moment a:hover,
+.shift-toc a:hover {
+  background: var(--glass-strong);
+  border-color: color-mix(in srgb, var(--accent, var(--brand)) 45%, transparent);
+  box-shadow: 0 12px 40px -12px color-mix(in srgb, var(--accent, var(--brand)) 40%, transparent);
+}
+
+/* Page heads: big display type over a soft glow */
+.page {
+  position: relative;
+}
+.page::before {
+  content: '';
+  position: absolute;
+  inset: -1.5rem -50vw auto;
+  height: 420px;
+  z-index: -1;
+  background: radial-gradient(40% 70% at 30% 0%, color-mix(in srgb, var(--brand) 16%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.page-head {
+  padding: 2.5rem 0 1rem;
+}
+.page-head h1 {
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.page-head .kicker {
+  color: var(--brand);
+}
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.02em;
+  margin: 4rem 0 1.25rem;
+}
+
+/* ── Home hero ── */
+.home .hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+  min-height: min(76svh, 760px);
+  padding: 2rem 0;
+}
+.hero-glow {
+  position: absolute;
+  inset: -2rem -50vw -2rem;
+  z-index: -1;
+  background:
+    radial-gradient(35% 55% at 72% 50%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
+    radial-gradient(30% 40% at 15% 20%, color-mix(in srgb, var(--brand) 12%, transparent), transparent 70%);
+  transition: background 1s ease;
+}
+.home .hero h1 {
+  font-size: clamp(2.6rem, 6.2vw, 5rem);
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+}
+.grad {
+  background: linear-gradient(90deg, #b9a6ff, #7fb2ff 40%, #5fe0d0 70%, #ff8fc4);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.hero-object {
+  position: relative;
+  height: min(62svh, 560px);
+  display: grid;
+}
+.hero-object .stage-canvas {
+  min-height: 0;
+}
+.hero-object-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 2.2rem;
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: var(--glass-strong);
+  border: 1px solid var(--hairline);
+  backdrop-filter: blur(12px);
+  color: var(--ink);
+  font-size: 0.9rem;
+  animation: caption-in 0.6s ease both;
+}
+.hero-object-caption:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+}
+.hero-object-caption .mono {
+  color: var(--accent);
+}
+.hero-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.4rem;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.hero-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 25%, transparent);
+  transition: width 0.3s, background 0.3s;
+}
+.hero-dots button.is-active {
+  width: 22px;
+  background: var(--accent);
+}
+@media (max-width: 860px) {
+  .home .hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding-top: 1.5rem;
+  }
+  .hero-object {
+    height: 40svh;
+    order: -1;
+  }
+}
+
+/* Big idea: two glass panes */
+.big-idea {
+  background:
+    radial-gradient(60% 120% at 100% 0%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 60%),
+    var(--glass);
+  padding: 2rem;
+  border-radius: 24px;
+}
+.big-idea-cta {
+  color: var(--ink);
+}
+
+/* Path: numbered steps */
+.path-num {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* Chapters: each card wears its era's accent */
+.chapter-card {
+  position: relative;
+  overflow: hidden;
+}
+.chapter-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+.chapter-card.mood-winter {
+  background: var(--glass);
+}
+.chapter-years {
+  color: var(--accent, var(--brand));
+}
+
+/* Shifts */
+.shift-card {
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+.shift-head h2 {
+  letter-spacing: -0.025em;
+}
+.ft-to {
+  border-color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 8%, transparent);
+}
+.analogy,
+.why {
+  background: var(--glass);
+}
+.demo-rules {
+  background: color-mix(in srgb, #6aa8ff 7%, transparent);
+}
+.demo-model {
+  background: color-mix(in srgb, #f5a03b 7%, transparent);
+}
+.demo-input,
+.search {
+  background: var(--glass);
+  border-color: var(--hairline);
+}
+
+/* Frontier: labs glow in their own colour */
+.lab-card {
+  border-top: 1px solid var(--hairline);
+  background:
+    radial-gradient(80% 50% at 50% 0%, color-mix(in srgb, var(--lab) 16%, transparent), transparent 70%),
+    var(--glass);
+}
+.lab-card h3 {
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+.model-list li {
+  background: var(--glass);
+  border: 1px solid var(--hairline);
+}
+.notice {
+  border: 1px solid color-mix(in srgb, var(--warn-ink) 25%, transparent);
+}
+
+/* Next step: a big glowing call to action */
+.next-step {
+  background:
+    radial-gradient(70% 140% at 100% 50%, color-mix(in srgb, var(--brand) 30%, transparent), transparent 60%),
+    var(--glass-strong);
+  border: 1px solid var(--hairline);
+  color: var(--ink);
+  border-radius: 24px;
+  padding: 2rem;
+}
+.next-step-label {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  letter-spacing: -0.03em;
+}
+
+/* Timeline list */
+.tl-era-head {
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+.tl-era-head h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.tl-dot {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--dot) 60%, transparent);
+}
+
+.site-footer {
+  border-top-color: var(--hairline);
 }
