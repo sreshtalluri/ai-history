@@ -88,9 +88,14 @@ function transformer(): Built {
   const layers = [0, 1, 2].map((k) =>
     box([3.2, 0.22, 0.9], clay(k % 2 ? P.sky : '#9fa4ff', { transparent: true, opacity: 0.85 }), [0, 0.75 + k * 0.32, -0.55], undefined, 0.1),
   );
-  const nx = label('× N layers', [0.9, 0.22], { pos: [1.15, 1.75, -0.1], bg: P.ink, fg: P.paper, font: '600 34px "JetBrains Mono", monospace' });
+  const nx = label('× N layers', [0.9, 0.22], { pos: [1.15, 1.45, -0.1], bg: P.ink, fg: P.paper, font: '600 34px "JetBrains Mono", monospace' });
+  // Tokens, attention arcs and the layer stack together are taller than the
+  // stage frame, so shrink and lower the whole model to keep the top in view.
+  const model = group(...tokens, ...arcs, ...layers, nx);
+  model.scale.setScalar(0.82);
+  model.position.y = -0.15;
   return {
-    group: group(...tokens, ...arcs, ...layers, nx),
+    group: group(model),
     update: (t) => {
       const focus = Math.floor(t / 1.4) % words.length;
       arcs.forEach((arc) => {
