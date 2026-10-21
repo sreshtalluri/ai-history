@@ -1,0 +1,33 @@
+import type { Term } from '../types';
+
+/** Who coined what: the vocabulary of AI, in order. */
+export const terms: readonly Term[] = [
+  { term: 'Robot', year: 1920, coinedBy: 'Karel Čapek (credited his brother Josef)', meaning: 'From Czech robota, "forced labour". First used for artificial workers in the play R.U.R.', event: 'rur-robot' },
+  { term: 'Robotics', year: 1941, coinedBy: 'Isaac Asimov', meaning: 'The study and building of robots. First used in his short story "Liar!".' },
+  { term: 'Cybernetics', year: 1948, coinedBy: 'Norbert Wiener', meaning: 'The science of control and communication in animals and machines. "Artificial intelligence" was partly coined to set the new field apart from it.' },
+  { term: 'Imitation Game / Turing Test', year: 1950, coinedBy: 'Alan Turing', meaning: 'If a judge can\'t tell a machine from a human in text chat, the machine passes.', event: 'turing-test' },
+  { term: 'Artificial Intelligence', year: 1955, coinedBy: 'John McCarthy (with Minsky, Shannon, Rochester)', meaning: 'Making machines do things that would require intelligence if done by people. First used in the Dartmouth proposal.', event: 'dartmouth' },
+  { term: 'Machine Learning', year: 1959, coinedBy: 'Arthur Samuel', meaning: 'Computers that improve from experience instead of following hand-written rules.', event: 'machine-learning-term' },
+  { term: 'Expert System', year: '1970s', coinedBy: 'Edward Feigenbaum & Stanford colleagues', meaning: 'A program that captures a human specialist\'s knowledge as if-then rules.', event: 'expert-systems' },
+  { term: 'AI Winter', year: 1984, coinedBy: 'Debate at the AAAI conference (Minsky, Schank)', meaning: 'A period of collapsed funding and interest after overpromising.', event: 'lighthill' },
+  { term: 'Backpropagation', year: 1986, coinedBy: 'Popularised by Rumelhart, Hinton & Williams', meaning: 'Sending the error backwards through a network to work out how each weight should change.', event: 'backprop' },
+  { term: 'Technological Singularity', year: 1993, coinedBy: 'Vernor Vinge (idea from John von Neumann and I. J. Good)', meaning: 'A hypothetical point where AI improves itself faster than humans can follow.' },
+  { term: 'AGI (Artificial General Intelligence)', year: '1997 / 2002', coinedBy: 'Mark Gubrud first; popularised by Shane Legg & Ben Goertzel', meaning: 'AI that matches humans across most cognitive tasks, not just one. Still has no agreed definition.', event: 'gpt6-astra' },
+  { term: 'Deep Learning', year: 2006, coinedBy: 'Popularised by Hinton, Bengio & LeCun (earlier use by Rina Dechter, 1986)', meaning: 'Neural networks with many layers that learn layered representations.', event: 'deep-belief-nets' },
+  { term: 'Embedding', year: 2013, coinedBy: 'Popularised by word2vec (Mikolov et al.)', meaning: 'A list of numbers that represents meaning, so that similar things sit close together.', event: 'word2vec' },
+  { term: 'Attention', year: 2014, coinedBy: 'Bahdanau, Cho & Bengio', meaning: 'Letting a model choose which parts of the input to focus on at each step.', event: 'seq2seq-attention' },
+  { term: 'Transformer', year: 2017, coinedBy: 'Jakob Uszkoreit (Vaswani et al.)', meaning: 'The architecture behind GPT, Claude and Gemini, built entirely on attention.', event: 'transformer' },
+  { term: 'Deepfake', year: 2017, coinedBy: 'A Reddit user of that name', meaning: 'AI-generated media that imitates a real person.' },
+  { term: 'RLHF', year: 2017, coinedBy: 'From Christiano et al. and later OpenAI work', meaning: 'Reinforcement learning from human feedback: train a model on which answers people prefer.', event: 'rlhf-paper' },
+  { term: 'Large Language Model (LLM)', year: '~2018–2020', coinedBy: 'Gradual usage in the NLP community', meaning: 'A huge neural network trained to predict the next token of text.', event: 'scaling-laws-gpt3' },
+  { term: 'Foundation Model', year: 2021, coinedBy: 'Stanford CRFM (Bommasani, Liang et al.)', meaning: 'One big pre-trained model that can be adapted to many tasks.', event: 'clip-dalle' },
+  { term: 'Prompt Engineering', year: '2020–22', coinedBy: 'GPT-3 and image-gen communities', meaning: 'Writing inputs carefully to get better outputs from a model.', event: 'image-gen-boom' },
+  { term: 'Hallucination', year: '2022–23 (LLM sense)', coinedBy: 'Popularised after ChatGPT', meaning: 'When a model confidently states something false.', event: 'chatgpt' },
+  { term: 'Constitutional AI', year: 2022, coinedBy: 'Anthropic', meaning: 'Training a model to follow a written set of principles, using AI feedback.', event: 'constitutional-ai' },
+  { term: 'Open Weights', year: 2023, coinedBy: 'Community usage, distinct from "open source"', meaning: 'Model weights you can download, often without the training data or code.', event: 'llama-open-weights' },
+  { term: 'Test-time Compute', year: 2024, coinedBy: 'Popularised with OpenAI o1', meaning: 'Letting a model think longer while answering, to get better answers.', event: 'o1-reasoning' },
+  { term: 'Agentic', year: '2024–25', coinedBy: 'Industry buzzword', meaning: 'AI that plans and takes actions with tools, rather than just replying.', event: 'computer-use-mcp' },
+  { term: 'MCP', year: 2024, coinedBy: 'Anthropic (Model Context Protocol)', meaning: 'An open standard for connecting AI models to tools and data.', event: 'computer-use-mcp' },
+  { term: 'Vibe Coding', year: 2025, coinedBy: 'Andrej Karpathy', meaning: 'Building software by describing what you want and letting AI write the code.', event: 'claude-code' },
+  { term: 'World Model', year: '2018 (deep learning sense)', coinedBy: 'Ha & Schmidhuber popularised it', meaning: 'An AI that simulates how an environment behaves, so agents can "imagine" what happens next.', event: 'veo3-genie3' },
+];

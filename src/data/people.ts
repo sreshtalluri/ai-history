@@ -1,0 +1,270 @@
+import type { Person } from '../types';
+
+export const people = {
+  lovelace: {
+    name: 'Ada Lovelace',
+    lifespan: '1815–1852',
+    role: 'Mathematician',
+    knownFor: 'Wrote what is often called the first computer program, and argued that machines can only do what we tell them to.',
+  },
+  capek: {
+    name: 'Karel Čapek',
+    lifespan: '1890–1938',
+    role: 'Czech playwright',
+    knownFor: 'Brought the word "robot" into use in his 1920 play R.U.R. (his brother Josef suggested it).',
+  },
+  turing: {
+    name: 'Alan Turing',
+    lifespan: '1912–1954',
+    role: 'Mathematician & codebreaker',
+    knownFor: 'Defined the theoretical computer (1936) and proposed the Imitation Game, now called the Turing Test (1950).',
+  },
+  mcculloch: {
+    name: 'Warren McCulloch',
+    lifespan: '1898–1969',
+    role: 'Neuroscientist',
+    knownFor: 'Co-created the first mathematical model of a neuron (1943).',
+  },
+  pitts: {
+    name: 'Walter Pitts',
+    lifespan: '1923–1969',
+    role: 'Logician',
+    knownFor: 'Co-created the McCulloch–Pitts neuron as a self-taught teenager.',
+  },
+  hebb: {
+    name: 'Donald Hebb',
+    lifespan: '1904–1985',
+    role: 'Psychologist',
+    knownFor: '"Cells that fire together wire together", the first theory of how learning changes connections in the brain.',
+  },
+  shannon: {
+    name: 'Claude Shannon',
+    lifespan: '1916–2001',
+    role: 'Mathematician & engineer',
+    knownFor: 'Founded information theory and co-organised the Dartmouth workshop.',
+  },
+  mccarthy: {
+    name: 'John McCarthy',
+    lifespan: '1927–2011',
+    role: 'Computer scientist',
+    knownFor: 'Coined "artificial intelligence" (1955), created LISP and organised the Dartmouth workshop.',
+  },
+  minsky: {
+    name: 'Marvin Minsky',
+    lifespan: '1927–2016',
+    role: 'Computer scientist',
+    knownFor: 'Co-founded the MIT AI Lab, built an early neural-net machine, then co-wrote the book that chilled neural-net research.',
+  },
+  newell: {
+    name: 'Allen Newell',
+    lifespan: '1927–1992',
+    role: 'Computer scientist',
+    knownFor: 'Co-created Logic Theorist and the General Problem Solver.',
+  },
+  simon: {
+    name: 'Herbert Simon',
+    lifespan: '1916–2001',
+    role: 'Economist & cognitive scientist',
+    knownFor: 'Co-created Logic Theorist; won both the Turing Award and the Nobel Prize in economics.',
+  },
+  rosenblatt: {
+    name: 'Frank Rosenblatt',
+    lifespan: '1928–1971',
+    role: 'Psychologist',
+    knownFor: 'Invented the perceptron, the first neural network that could learn.',
+  },
+  samuel: {
+    name: 'Arthur Samuel',
+    lifespan: '1901–1990',
+    role: 'IBM engineer',
+    knownFor: 'Built a self-improving checkers program and popularised the term "machine learning" (1959).',
+  },
+  weizenbaum: {
+    name: 'Joseph Weizenbaum',
+    lifespan: '1923–2008',
+    role: 'MIT computer scientist',
+    knownFor: 'Built ELIZA, the first chatbot, then spent his career warning about trusting computers too much.',
+  },
+  feigenbaum: {
+    name: 'Edward Feigenbaum',
+    lifespan: '1936–',
+    role: 'Computer scientist',
+    knownFor: 'Called the "father of expert systems"; led the DENDRAL project.',
+  },
+  lighthill: {
+    name: 'James Lighthill',
+    lifespan: '1924–1998',
+    role: 'Applied mathematician',
+    knownFor: 'Wrote the 1973 report that helped trigger the first AI winter.',
+  },
+  hopfield: {
+    name: 'John Hopfield',
+    lifespan: '1933–',
+    role: 'Physicist',
+    knownFor: 'Hopfield networks (1982), a model of associative memory; 2024 Nobel Prize in Physics.',
+  },
+  hinton: {
+    name: 'Geoffrey Hinton',
+    lifespan: '1947–',
+    role: 'Computer scientist',
+    knownFor: '"Godfather of deep learning": backpropagation, deep belief nets, AlexNet. Turing Award 2018, Nobel Prize 2024.',
+  },
+  rumelhart: {
+    name: 'David Rumelhart',
+    lifespan: '1942–2011',
+    role: 'Cognitive scientist',
+    knownFor: 'Lead author of the 1986 backpropagation paper.',
+  },
+  lecun: {
+    name: 'Yann LeCun',
+    lifespan: '1960–',
+    role: 'Computer scientist',
+    knownFor: 'Pioneered convolutional neural networks for reading handwriting. Turing Award 2018.',
+  },
+  bengio: {
+    name: 'Yoshua Bengio',
+    lifespan: '1964–',
+    role: 'Computer scientist',
+    knownFor: 'Neural language models and attention; now a leading voice on AI safety. Turing Award 2018.',
+  },
+  schmidhuber: {
+    name: 'Jürgen Schmidhuber',
+    lifespan: '1963–',
+    role: 'Computer scientist',
+    knownFor: 'Co-invented the LSTM, the memory cell behind 2010s speech and translation.',
+  },
+  hochreiter: {
+    name: 'Sepp Hochreiter',
+    lifespan: '1967–',
+    role: 'Computer scientist',
+    knownFor: 'Co-invented the LSTM and diagnosed the vanishing-gradient problem.',
+  },
+  pearl: {
+    name: 'Judea Pearl',
+    lifespan: '1936–',
+    role: 'Computer scientist',
+    knownFor: 'Bayesian networks and causal reasoning. Turing Award 2011.',
+  },
+  vapnik: {
+    name: 'Vladimir Vapnik',
+    lifespan: '1936–',
+    role: 'Statistician',
+    knownFor: 'Co-invented support vector machines and statistical learning theory.',
+  },
+  sutton: {
+    name: 'Richard Sutton',
+    lifespan: '1957–',
+    role: 'Computer scientist',
+    knownFor: 'Founder of modern reinforcement learning; wrote "The Bitter Lesson". Turing Award 2024 (with Andrew Barto).',
+  },
+  feifeili: {
+    name: 'Fei-Fei Li',
+    lifespan: '1976–',
+    role: 'Computer scientist',
+    knownFor: 'Created ImageNet, the dataset that sparked the deep learning boom.',
+  },
+  thrun: {
+    name: 'Sebastian Thrun',
+    lifespan: '1967–',
+    role: 'Roboticist',
+    knownFor: 'Led Stanford\'s Stanley to win the 2005 DARPA Grand Challenge; founded Google\'s self-driving project.',
+  },
+  ng: {
+    name: 'Andrew Ng',
+    lifespan: '1976–',
+    role: 'Computer scientist',
+    knownFor: 'Co-founded Google Brain, pushed GPUs for deep learning, taught ML to millions online.',
+  },
+  krizhevsky: {
+    name: 'Alex Krizhevsky',
+    role: 'Computer scientist',
+    knownFor: 'Built and trained AlexNet on two gaming GPUs in his bedroom.',
+  },
+  sutskever: {
+    name: 'Ilya Sutskever',
+    lifespan: '1986–',
+    role: 'Computer scientist',
+    knownFor: 'Co-created AlexNet and seq2seq; co-founded OpenAI; later founded Safe Superintelligence.',
+  },
+  goodfellow: {
+    name: 'Ian Goodfellow',
+    lifespan: '1987–',
+    role: 'Computer scientist',
+    knownFor: 'Invented generative adversarial networks (GANs).',
+  },
+  mikolov: {
+    name: 'Tomáš Mikolov',
+    lifespan: '1982–',
+    role: 'Computer scientist',
+    knownFor: 'Created word2vec, which turned words into vectors you can do arithmetic on.',
+  },
+  hassabis: {
+    name: 'Demis Hassabis',
+    lifespan: '1976–',
+    role: 'Neuroscientist & CEO, Google DeepMind',
+    knownFor: 'Co-founded DeepMind; led AlphaGo and AlphaFold. 2024 Nobel Prize in Chemistry.',
+  },
+  silver: {
+    name: 'David Silver',
+    role: 'Computer scientist',
+    knownFor: 'Lead researcher on AlphaGo and AlphaZero.',
+  },
+  vaswani: {
+    name: 'Ashish Vaswani et al.',
+    role: 'Google Brain / Research',
+    knownFor: 'The eight authors of "Attention Is All You Need" (2017): Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser and Polosukhin.',
+  },
+  radford: {
+    name: 'Alec Radford',
+    role: 'Researcher',
+    knownFor: 'Lead author of GPT-1, GPT-2, CLIP and Whisper at OpenAI.',
+  },
+  christiano: {
+    name: 'Paul Christiano',
+    role: 'Alignment researcher',
+    knownFor: 'Co-authored the 2017 paper behind RLHF, the training method that made chatbots helpful.',
+  },
+  jumper: {
+    name: 'John Jumper',
+    lifespan: '1985–',
+    role: 'Scientist, Google DeepMind',
+    knownFor: 'Led AlphaFold 2. 2024 Nobel Prize in Chemistry.',
+  },
+  amodei: {
+    name: 'Dario & Daniela Amodei',
+    role: 'Co-founders, Anthropic',
+    knownFor: 'Left OpenAI in 2021 to found Anthropic, maker of Claude, with safety as its core mission.',
+  },
+  altman: {
+    name: 'Sam Altman',
+    lifespan: '1985–',
+    role: 'CEO, OpenAI',
+    knownFor: 'Led OpenAI through ChatGPT; briefly fired and reinstated in November 2023.',
+  },
+  karpathy: {
+    name: 'Andrej Karpathy',
+    role: 'Researcher & educator',
+    knownFor: 'Founding member of OpenAI, former head of Tesla Autopilot AI; coined "vibe coding" (2025).',
+  },
+  liangwenfeng: {
+    name: 'Liang Wenfeng',
+    role: 'Founder, DeepSeek',
+    knownFor: 'Built DeepSeek out of a quant hedge fund; R1 shook markets in January 2025.',
+  },
+  kasparov: {
+    name: 'Garry Kasparov',
+    lifespan: '1963–',
+    role: 'Chess world champion',
+    knownFor: 'Lost to IBM\'s Deep Blue in 1997, the first time a reigning world champion lost a match to a computer.',
+  },
+  leesedol: {
+    name: 'Lee Sedol',
+    lifespan: '1983–',
+    role: 'Go champion',
+    knownFor: 'Lost 4–1 to AlphaGo in 2016, but his "God move" won game four.',
+  },
+} as const satisfies Record<string, Person>;
+
+export type PersonId = keyof typeof people;
+
+export const personIds = Object.keys(people) as PersonId[];
