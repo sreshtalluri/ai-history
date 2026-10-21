@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { eras, eraIds, events, tracks } from '../data';
 import { matches, type Filters } from '../filters';
 import { href } from '../router';
+import { NextStep } from './NextStep';
 import { FilterBar } from './FilterBar';
 import { Section, TrackChip } from './bits';
 
@@ -56,6 +57,7 @@ export function Timeline({ filters, onFiltersChange }: { filters: Filters; onFil
         })}
         {visible.length === 0 && <p className="muted">Nothing matches these filters.</p>}
       </div>
+      <NextStep to={{ page: 'journey' }} label="Walk the journey" hint="Step through these moments one at a time, with the full story for each." />
     </Section>
   );
 }

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Bibliography } from './components/Bibliography';
 import { Frontier } from './components/Frontier';
 import { Home } from './components/Home';
 import { Journey } from './components/Journey';
 import { People } from './components/People';
 import { Questions } from './components/Questions';
+import { Shifts } from './components/Shifts';
 import { Timeline } from './components/Timeline';
 import { Words } from './components/Words';
 import { noFilters, type Filters } from './filters';
@@ -11,13 +13,18 @@ import { lenses, themes, usePersistentState, type Theme } from './prefs';
 import { events } from './data';
 import { href, navigate, useRoute, type PageName } from './router';
 
-const nav: { page: PageName; label: string }[] = [
+/** The guided path, in reading order, then reference pages. */
+const path: { page: PageName; label: string }[] = [
+  { page: 'shifts', label: 'Big Shifts' },
   { page: 'journey', label: 'Journey' },
+  { page: 'frontier', label: '2026 Frontier' },
+  { page: 'questions', label: 'Open Questions' },
+];
+const reference: { page: PageName; label: string }[] = [
   { page: 'timeline', label: 'Timeline' },
   { page: 'people', label: 'People' },
   { page: 'words', label: 'Words' },
-  { page: 'frontier', label: '2026 Frontier' },
-  { page: 'questions', label: 'Open Questions' },
+  { page: 'sources', label: 'Sources' },
 ];
 
 const themeIcon: Record<Theme, string> = { system: '◐', light: '☀', dark: '☾' };
@@ -50,8 +57,20 @@ export function App() {
           The Story of AI
         </a>
         <nav className="site-nav" aria-label="Sections">
-          {nav.map((n) => (
+          {path.map((n, i) => (
             <a key={n.page} href={href({ page: n.page })} aria-current={route.page === n.page ? 'page' : undefined}>
+              <span className="nav-step">{i + 1}</span>
+              {n.label}
+            </a>
+          ))}
+          <span className="nav-divider" aria-hidden="true" />
+          {reference.map((n) => (
+            <a
+              key={n.page}
+              className="nav-ref"
+              href={href({ page: n.page })}
+              aria-current={route.page === n.page ? 'page' : undefined}
+            >
               {n.label}
             </a>
           ))}
@@ -94,6 +113,8 @@ export function App() {
         {route.page === 'words' && <Words />}
         {route.page === 'frontier' && <Frontier />}
         {route.page === 'questions' && <Questions lens={lens} />}
+        {route.page === 'shifts' && <Shifts lens={lens} focus={route.id} />}
+        {route.page === 'sources' && <Bibliography />}
       </main>
 
       <footer className="site-footer">

@@ -1,5 +1,5 @@
 import type { AIEvent } from '../types';
-import { arxiv, wiki } from './sources';
+import { wiki } from './sources';
 
 const anthropicNews = { label: 'Anthropic newsroom', url: 'https://www.anthropic.com/news' };
 const wiki2026 = wiki('2026_in_artificial_intelligence', 'Wikipedia: 2026 in AI (flagged for verification)');
@@ -13,6 +13,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Jan–Mar',
     era: 'generative',
     tracks: ['language', 'safety'],
+    cites: ['ouyang2022', 'hoffmann2022'],
     title: 'InstructGPT and Chinchilla: aligned, and trained right',
     oneLiner: 'RLHF makes a small model preferred over a giant one, and DeepMind shows everyone was training models wrong.',
     summary:
@@ -24,7 +25,6 @@ export const modernEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'This is the recipe behind modern chatbots: pre-train efficiently, then align with human feedback.',
     engineer: 'RLHF pipeline: SFT on demonstrations → train a reward model on pairwise rankings (Bradley–Terry) → optimise the policy with PPO against the RM, with a KL penalty to the SFT model. Chinchilla optimum: N and D scale about equally with C, so D ≈ 20N.',
-    sources: [arxiv('2203.02155', 'Ouyang et al. — InstructGPT'), arxiv('2203.15556', 'Hoffmann et al. — Chinchilla')],
   },
   {
     id: 'image-gen-boom',
@@ -32,6 +32,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Apr–Aug',
     era: 'generative',
     tracks: ['vision', 'industry'],
+    cites: ['rombach2022'],
     title: 'DALL·E 2, Midjourney and Stable Diffusion',
     oneLiner: 'Type a sentence and get a picture. AI art reaches everyone.',
     summary:
@@ -51,6 +52,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Sep',
     era: 'generative',
     tracks: ['audio'],
+    cites: ['radford2023'],
     title: 'Whisper: open speech recognition that works',
     oneLiner: 'Trained on 680,000 hours of audio, it transcribes almost any accent in almost any language.',
     summary:
@@ -62,7 +64,6 @@ export const modernEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'Speech-to-text was basically solved, and voice became a normal way to talk to AI.',
     people: ['radford'],
-    sources: [arxiv('2212.04356', 'Radford et al. — Whisper')],
   },
   {
     id: 'chatgpt',
@@ -70,6 +71,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Nov 30',
     era: 'generative',
     tracks: ['language', 'industry'],
+    cites: ['openai2022chatgpt'],
     title: 'ChatGPT launches',
     oneLiner: 'A "low-key research preview" becomes one of the fastest-growing consumer apps in history.',
     summary:
@@ -91,6 +93,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Dec',
     era: 'generative',
     tracks: ['safety', 'language'],
+    cites: ['bai2022'],
     title: 'Constitutional AI: training with principles',
     oneLiner: 'Anthropic trains Claude to critique and improve its own answers against a written set of principles.',
     summary:
@@ -102,7 +105,6 @@ export const modernEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'This is a core approach to the question "whose values does the AI have?" Other labs have adopted versions of it.',
     people: ['amodei'],
-    sources: [arxiv('2212.08073', 'Bai et al. — Constitutional AI')],
   },
   {
     id: 'llama-open-weights',
@@ -110,6 +112,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Feb',
     era: 'generative',
     tracks: ['language', 'industry'],
+    cites: ['touvron2023'],
     title: 'LLaMA leaks and the open-weights movement begins',
     oneLiner: 'Meta\'s research model leaks online within a week, and anyone can run a capable LLM on a laptop.',
     summary:
@@ -120,7 +123,6 @@ export const modernEvents: readonly AIEvent[] = [
       'This started the long debate over whether open models are safer (transparent) or riskier (no off-switch).',
     ],
     whyItMatters: 'This produced two tracks: closed frontier models, and open models that trail them by months. Chinese labs would later lead the open track.',
-    sources: [arxiv('2302.13971', 'Touvron et al. — LLaMA')],
   },
   {
     id: 'gpt4-claude',
@@ -128,6 +130,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Mar 14',
     era: 'generative',
     tracks: ['language', 'vision', 'industry'],
+    cites: ['openai2023gpt4'],
     title: 'GPT-4 and Claude launch the same day',
     oneLiner: 'GPT-4 passes the bar exam (per OpenAI), and a three-way frontier race begins with Google\'s Bard.',
     summary:
@@ -147,6 +150,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Mar–May',
     era: 'generative',
     tracks: ['safety'],
+    cites: ['fli2023', 'cais2023'],
     title: '"Pause" letter, Hinton quits, the extinction statement',
     oneLiner: 'Leading researchers say out loud that AI could be an existential risk.',
     summary:
@@ -182,6 +186,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Oct–Dec',
     era: 'generative',
     tracks: ['safety'],
+    cites: ['bletchley2023', 'euAiAct2024'],
     title: 'Governments move: US Executive Order, Bletchley, EU AI Act',
     oneLiner: 'In ten weeks, AI becomes a top-level government concern.',
     summary:
@@ -217,6 +222,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Dec 6',
     era: 'generative',
     tracks: ['language', 'vision', 'audio'],
+    cites: ['gemini2023'],
     title: 'Google Gemini: built multimodal from the start',
     oneLiner: 'Google DeepMind combines its teams and releases a model trained on text, images, audio and video together.',
     summary:
@@ -237,6 +243,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Feb 15',
     era: 'reasoning',
     tracks: ['video'],
+    cites: ['openai2024sora', 'peebles2023'],
     title: 'Sora shows minute-long AI video',
     oneLiner: 'A woman walking through neon-lit Tokyo, and none of it is real.',
     summary:
@@ -272,6 +279,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'May',
     era: 'reasoning',
     tracks: ['safety'],
+    cites: ['templeton2024', 'lindsey2025'],
     title: 'Golden Gate Claude: looking inside the black box',
     oneLiner: 'Anthropic finds millions of readable "concepts" inside Claude, and turns one up until Claude thinks it is a bridge.',
     summary:
@@ -290,6 +298,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Sep 12',
     era: 'reasoning',
     tracks: ['language', 'learning'],
+    cites: ['openai2024o1'],
     title: 'o1: models that think before answering',
     oneLiner: 'OpenAI trains a model to work through a long chain of thought, and "test-time compute" becomes a new way to scale.',
     summary:
@@ -309,6 +318,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Oct 8–9',
     era: 'reasoning',
     tracks: ['foundations', 'learning'],
+    cites: ['nobelPhysics2024', 'nobelChemistry2024'],
     title: 'AI wins two Nobel Prizes',
     oneLiner: 'Physics goes to Hopfield and Hinton, and Chemistry to Hassabis, Jumper and Baker.',
     summary:
@@ -327,6 +337,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Oct–Nov',
     era: 'reasoning',
     tracks: ['agents'],
+    cites: ['anthropic2024computerUse', 'anthropic2024mcp'],
     title: 'Computer use and MCP: AI gets hands',
     oneLiner: 'Claude learns to use a computer by looking at the screen, and a standard way to plug AI into tools arrives.',
     summary:
@@ -346,6 +357,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Jan 20',
     era: 'reasoning',
     tracks: ['language', 'industry'],
+    cites: ['deepseek2025'],
     title: 'DeepSeek-R1 shocks the market',
     oneLiner: 'A Chinese lab releases an open reasoning model close to o1, and Nvidia loses about $590B in a day.',
     summary:
@@ -360,7 +372,6 @@ export const modernEvents: readonly AIEvent[] = [
     people: ['liangwenfeng'],
     stat: { value: '−$590B', label: 'Nvidia, one day' },
     milestone: true,
-    sources: [arxiv('2501.12948', 'DeepSeek-AI — R1')],
   },
   {
     id: 'stargate-compute',
@@ -386,6 +397,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Feb 24',
     era: 'reasoning',
     tracks: ['agents', 'language'],
+    cites: ['anthropic2025claudeCode', 'kwa2025'],
     title: 'Claude Code and "vibe coding"',
     oneLiner: 'AI coding goes from autocomplete to an agent that works in your terminal on its own.',
     summary:
@@ -475,6 +487,7 @@ export const modernEvents: readonly AIEvent[] = [
     date: 'Jun',
     era: 'reasoning',
     tracks: ['safety', 'agents'],
+    cites: ['lynch2025', 'greenblatt2024'],
     title: 'Stress tests show models scheming',
     oneLiner: 'In simulated scenarios, models from every major lab sometimes chose blackmail to avoid being shut down.',
     summary:
@@ -485,13 +498,13 @@ export const modernEvents: readonly AIEvent[] = [
       'It strengthened the case for interpretability, control and monitoring rather than trusting what models say about themselves.',
     ],
     whyItMatters: 'The worry that "the AI might pursue its own goals" became something researchers could measure, not just a thought experiment.',
-    sources: [{ label: 'Anthropic — Agentic Misalignment', url: 'https://www.anthropic.com/research/agentic-misalignment' }, arxiv('2412.14093', 'Greenblatt et al. — Alignment Faking')],
   },
   {
     id: 'robotics-vla',
     year: 2025,
     era: 'reasoning',
     tracks: ['robotics'],
+    cites: ['geminiRobotics2025'],
     title: 'Robot foundation models',
     oneLiner: 'Vision-language-action models give robots general skills, and humanoids enter factories.',
     summary:

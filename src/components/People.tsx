@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { events, people, personIds } from '../data';
 import { href } from '../router';
+import { NextStep } from './NextStep';
 import { Initials, Section } from './bits';
 
 export function People({ focus }: { focus: string | undefined }) {
@@ -50,6 +51,7 @@ export function People({ focus }: { focus: string | undefined }) {
           );
         })}
       </ul>
+      <NextStep to={{ page: 'journey' }} label="Walk the journey" hint="See these people’s work in context, one moment at a time." />
     </Section>
   );
 }

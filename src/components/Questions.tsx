@@ -1,11 +1,12 @@
 import { eventById, openProblems } from '../data';
 import type { Lens } from '../prefs';
 import { href } from '../router';
+import { NextStep } from './NextStep';
 import { Section } from './bits';
 
 export function Questions({ lens }: { lens: Lens }) {
   return (
-    <Section title="What we’re still working out" kicker="Open questions">
+    <Section title="What we’re still working out" kicker="Step 4 · Open questions">
       <p className="muted page-intro">
         The history isn’t finished. These are the problems researchers, labs and governments are working on now:
         how to make AI do what we intend, understand what’s happening inside it, and decide who gets to set the
@@ -40,6 +41,11 @@ export function Questions({ lens }: { lens: Lens }) {
           </li>
         ))}
       </ul>
+      <NextStep
+        to={{ page: 'sources' }}
+        label="Go deeper: read the original papers"
+        hint="Every source on this site, with full citations and exactly where to look."
+      />
     </Section>
   );
 }

@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 import { events, FRONTIER_AS_OF, labs } from '../data';
 import { href } from '../router';
+import { NextStep } from './NextStep';
 import { Section, SourceList } from './bits';
 
 const asOf = new Date(`${FRONTIER_AS_OF}T12:00:00Z`).toLocaleDateString('en-US', {
@@ -13,7 +14,7 @@ export function Frontier() {
   const latest = events.filter((e) => e.era === 'frontier').slice().reverse();
 
   return (
-    <Section title="The frontier, right now" kicker={`Snapshot · ${asOf}`}>
+    <Section title="The frontier, right now" kicker={`Step 3 · Snapshot as of ${asOf}`}>
       <div className="notice">
         <strong>This page goes out of date quickly.</strong> New models come out every week, and much of 2026 is
         based on news reports that haven’t fully settled. Each card links its sources. Treat specific numbers as
@@ -66,11 +67,11 @@ export function Frontier() {
         ))}
       </ol>
 
-      <div className="next-up">
-        <a className="button primary" href={href({ page: 'questions' })}>
-          What’s still unsolved →
-        </a>
-      </div>
+      <NextStep
+        to={{ page: 'questions' }}
+        label="Step 4 · What’s still unsolved"
+        hint="Alignment, interpretability, agents, governance: the problems being worked on right now."
+      />
     </Section>
   );
 }

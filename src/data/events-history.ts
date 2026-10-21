@@ -1,5 +1,5 @@
 import type { AIEvent } from '../types';
-import { arxiv, wiki } from './sources';
+import { wiki } from './sources';
 
 /** Prelude through 2021: well-documented history. */
 export const historyEvents: readonly AIEvent[] = [
@@ -9,6 +9,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1843,
     era: 'prelude',
     tracks: ['foundations'],
+    cites: ['lovelace1843'],
     title: 'Ada Lovelace writes the first program',
     oneLiner: 'A program for a machine that was never built, plus a warning that machines can\'t truly create.',
     summary:
@@ -28,6 +29,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1920,
     era: 'prelude',
     tracks: ['robotics'],
+    cites: ['capek1920'],
     title: 'The word "robot" is born',
     oneLiner: 'A Czech play about artificial workers who rebel gives us the word "robot".',
     summary:
@@ -48,6 +50,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1936,
     era: 'foundations',
     tracks: ['foundations'],
+    cites: ['turing1936'],
     title: 'Turing imagines the universal machine',
     oneLiner: 'Before any computer existed, Turing described exactly what one is.',
     summary:
@@ -70,6 +73,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1943,
     era: 'foundations',
     tracks: ['foundations', 'learning'],
+    cites: ['mccullochPitts1943'],
     title: 'The first artificial neuron',
     oneLiner: 'Brain cells modelled as tiny on/off switches doing logic.',
     summary:
@@ -84,10 +88,34 @@ export const historyEvents: readonly AIEvent[] = [
     people: ['mcculloch', 'pitts'],
   },
   {
+    id: 'shannon-information',
+    year: 1948,
+    era: 'foundations',
+    tracks: ['foundations', 'language'],
+    cites: ['shannon1948'],
+    title: 'Shannon turns language into probabilities',
+    oneLiner: 'The first machine-made "sentences" come from rolling dice weighted by word statistics.',
+    summary:
+      'In founding information theory, Claude Shannon showed that English can be modelled statistically. He generated text by picking each next word at random, weighted by how often it follows the previous one. The more context he used, the more English-like the output became. Run it twice and you get different text.',
+    keyPoints: [
+      'He defined information mathematically and measured it in "bits".',
+      'His word-by-word sampling is essentially a tiny language model. Modern LLMs do the same thing with far more context and a neural network.',
+      'This is the origin of the idea that a machine can produce different, plausible outputs from the same starting point.',
+    ],
+    whyItMatters:
+      'The "same question, different answer" behaviour of today\'s chatbots goes back to here: language as probabilities, and generation as sampling.',
+    engineer:
+      'Shannon built n-gram approximations of English (zeroth-order, first-order, digram, trigram, then word-level) and sampled from them. An LLM is the same autoregressive factorisation, p(w₁…wₙ) = Π p(wᵢ | w₍<ᵢ₎), with the count table replaced by a Transformer over thousands of tokens of context.',
+    people: ['shannon'],
+    coined: { term: 'bit', by: 'John Tukey; first used in print by Shannon (1948)' },
+    milestone: true,
+  },
+  {
     id: 'hebb-rule',
     year: 1949,
     era: 'foundations',
     tracks: ['learning'],
+    cites: ['hebb1949'],
     title: 'Hebb: "fire together, wire together"',
     oneLiner: 'The first theory of how learning works physically: connections that are used get stronger.',
     summary:
@@ -105,6 +133,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1950,
     era: 'foundations',
     tracks: ['foundations', 'language'],
+    cites: ['turing1950'],
     title: 'Turing asks "Can machines think?"',
     oneLiner: 'The Imitation Game: if you can\'t tell it from a human in conversation, does it matter?',
     summary:
@@ -119,7 +148,6 @@ export const historyEvents: readonly AIEvent[] = [
     people: ['turing'],
     coined: { term: 'Imitation Game (Turing Test)', by: 'Alan Turing' },
     milestone: true,
-    sources: [{ label: 'Turing (1950), Mind', url: 'https://academic.oup.com/mind/article/LIX/236/433/986238' }],
   },
   {
     id: 'snarc',
@@ -146,6 +174,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Summer',
     era: 'birth',
     tracks: ['foundations', 'symbolic'],
+    cites: ['dartmouth1955'],
     title: 'Dartmouth: "artificial intelligence" gets its name',
     oneLiner: 'A summer workshop gives the field a name and a big promise.',
     summary:
@@ -184,6 +213,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1958,
     era: 'birth',
     tracks: ['learning', 'vision'],
+    cites: ['rosenblatt1958'],
     title: 'The Perceptron learns to see',
     oneLiner: 'The first neural network that learned from examples, and the first AI hype cycle.',
     summary:
@@ -203,6 +233,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1959,
     era: 'birth',
     tracks: ['learning', 'games'],
+    cites: ['samuel1959'],
     title: '"Machine learning" enters the vocabulary',
     oneLiner: 'Arthur Samuel\'s checkers program gets better than its creator.',
     summary:
@@ -237,6 +268,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1966,
     era: 'birth',
     tracks: ['language'],
+    cites: ['weizenbaum1966'],
     title: 'ELIZA, the first chatbot',
     oneLiner: 'A simple pattern-matcher convinced people it understood them.',
     summary:
@@ -273,6 +305,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1969,
     era: 'birth',
     tracks: ['learning'],
+    cites: ['minskyPapert1969'],
     title: '"Perceptrons" chills neural-net research',
     oneLiner: 'A famous book shows the limits of single-layer networks, and the funding moves elsewhere.',
     summary:
@@ -293,6 +326,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1973,
     era: 'winters',
     tracks: ['industry', 'symbolic'],
+    cites: ['lighthill1973'],
     title: 'The Lighthill Report and the first AI winter',
     oneLiner: 'Big promises, small results, so governments cut the funding.',
     summary:
@@ -330,6 +364,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1982,
     era: 'winters',
     tracks: ['learning', 'foundations'],
+    cites: ['hopfield1982'],
     title: 'Hopfield networks: memory from physics',
     oneLiner: 'A physicist shows neural nets can store and recall memories, which revives the field.',
     summary:
@@ -347,6 +382,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1986,
     era: 'winters',
     tracks: ['learning'],
+    cites: ['rumelhart1986'],
     title: 'Backpropagation makes deep nets trainable',
     oneLiner: 'The algorithm that lets every layer of a network learn from its mistakes.',
     summary:
@@ -382,6 +418,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1989,
     era: 'winters',
     tracks: ['vision', 'learning'],
+    cites: ['lecun1989', 'lecun1998'],
     title: 'LeCun\'s nets read handwriting',
     oneLiner: 'Convolutional networks learn to read ZIP codes, and later process cheques at scale.',
     summary:
@@ -400,6 +437,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1988,
     era: 'winters',
     tracks: ['learning', 'foundations'],
+    cites: ['pearl1988'],
     title: 'Probabilistic reasoning takes over',
     oneLiner: 'Judea Pearl teaches machines to reason with uncertainty instead of strict rules.',
     summary:
@@ -417,6 +455,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1992,
     era: 'winters',
     tracks: ['games', 'learning'],
+    cites: ['tesauro1995'],
     title: 'TD-Gammon teaches itself backgammon',
     oneLiner: 'Reinforcement learning plus a neural net reaches world-class play by playing against itself.',
     summary:
@@ -436,6 +475,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1995,
     era: 'ml',
     tracks: ['learning'],
+    cites: ['cortesVapnik1995'],
     title: 'Support vector machines dominate',
     oneLiner: 'An elegant maths method that beat neural nets for about 15 years.',
     summary:
@@ -453,6 +493,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 1997,
     era: 'ml',
     tracks: ['learning', 'language', 'audio'],
+    cites: ['hochreiter1997'],
     title: 'LSTM gives networks memory',
     oneLiner: 'A neural network that can remember things across long sequences.',
     summary:
@@ -472,6 +513,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'May',
     era: 'ml',
     tracks: ['games'],
+    cites: ['campbell2002'],
     title: 'Deep Blue beats Kasparov',
     oneLiner: 'For the first time, a computer beats the reigning world chess champion in a match.',
     summary:
@@ -508,6 +550,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 2005,
     era: 'ml',
     tracks: ['robotics', 'vision'],
+    cites: ['thrun2006'],
     title: 'Robot cars cross the desert',
     oneLiner: 'In 2004 no car finished. In 2005 five did.',
     summary:
@@ -526,6 +569,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 2006,
     era: 'ml',
     tracks: ['learning'],
+    cites: ['hinton2006'],
     title: 'Hinton rebrands neural nets as "deep learning"',
     oneLiner: 'A trick for training many-layered networks one layer at a time.',
     summary:
@@ -544,6 +588,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 2007,
     era: 'ml',
     tracks: ['industry', 'foundations'],
+    cites: ['raina2009'],
     title: 'Nvidia CUDA turns gaming chips into AI engines',
     oneLiner: 'Graphics cards become general-purpose number crunchers.',
     summary:
@@ -562,6 +607,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 2009,
     era: 'ml',
     tracks: ['vision', 'learning'],
+    cites: ['deng2009'],
     title: 'ImageNet: the dataset that changed everything',
     oneLiner: 'Fourteen million labelled images, and an annual contest to classify them.',
     summary:
@@ -581,6 +627,7 @@ export const historyEvents: readonly AIEvent[] = [
     year: 2011,
     era: 'ml',
     tracks: ['language', 'games', 'audio'],
+    cites: ['ferrucci2010'],
     title: 'Watson wins Jeopardy!, Siri arrives',
     oneLiner: 'AI answers trivia on TV and starts living in your phone.',
     summary:
@@ -600,6 +647,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Sep',
     era: 'deep',
     tracks: ['vision', 'learning'],
+    cites: ['krizhevsky2012'],
     title: 'AlexNet: the big bang of deep learning',
     oneLiner: 'A neural net trained on two gaming GPUs wins ImageNet by a huge margin.',
     summary:
@@ -614,13 +662,13 @@ export const historyEvents: readonly AIEvent[] = [
     people: ['krizhevsky', 'sutskever', 'hinton'],
     stat: { value: '15.3% vs 26.2%', label: 'error vs runner-up' },
     milestone: true,
-    sources: [{ label: 'Krizhevsky et al. (NeurIPS 2012)', url: 'https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html' }],
   },
   {
     id: 'word2vec',
     year: 2013,
     era: 'deep',
     tracks: ['language', 'learning'],
+    cites: ['mikolov2013'],
     title: 'word2vec: king − man + woman = queen',
     oneLiner: 'Words become points in space, and meaning becomes geometry.',
     summary:
@@ -632,13 +680,13 @@ export const historyEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'It showed that meaning can be learned from raw text with no labels, which is the basis of every LLM.',
     people: ['mikolov'],
-    sources: [arxiv('1301.3781', 'Mikolov et al. (2013)')],
   },
   {
     id: 'dqn-atari',
     year: 2013,
     era: 'deep',
     tracks: ['games', 'learning'],
+    cites: ['mnih2013', 'mnih2015'],
     title: 'DeepMind\'s AI learns Atari from pixels',
     oneLiner: 'One algorithm learns dozens of video games from the raw screen. Google buys DeepMind.',
     summary:
@@ -650,13 +698,13 @@ export const historyEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'This made "deep reinforcement learning" a field and started DeepMind\'s path to AlphaGo and AlphaFold.',
     people: ['hassabis', 'silver'],
-    sources: [arxiv('1312.5602', 'Mnih et al. (2013)')],
   },
   {
     id: 'gans',
     year: 2014,
     era: 'deep',
     tracks: ['vision', 'learning'],
+    cites: ['goodfellow2014'],
     title: 'GANs: two networks duel to create images',
     oneLiner: 'A forger network and a detective network train each other until the fakes look real.',
     summary:
@@ -669,13 +717,13 @@ export const historyEvents: readonly AIEvent[] = [
     whyItMatters: 'This is where generated media starts, along with the problems it brings.',
     engineer: 'A minimax game: min_G max_D E[log D(x)] + E[log(1 − D(G(z)))]. GANs are notoriously unstable (mode collapse, training oscillation). Variational autoencoders (Kingma & Welling, 2013) were the other main early generative approach.',
     people: ['goodfellow'],
-    sources: [arxiv('1406.2661', 'Goodfellow et al. (2014)')],
   },
   {
     id: 'seq2seq-attention',
     year: 2014,
     era: 'deep',
     tracks: ['language', 'learning'],
+    cites: ['sutskever2014', 'bahdanau2015', 'wu2016'],
     title: 'Seq2seq and the birth of attention',
     oneLiner: 'Neural nets learn to translate, and to "look back" at the relevant words.',
     summary:
@@ -688,7 +736,6 @@ export const historyEvents: readonly AIEvent[] = [
     whyItMatters: 'Attention is the idea the Transformer was built around three years later.',
     engineer: 'Bahdanau (additive) attention: score(sₜ, hᵢ) = vᵀ tanh(W[sₜ; hᵢ]), softmax over i, then a weighted sum of encoder states. The Transformer later switched to scaled dot-product attention and removed the recurrence.',
     people: ['sutskever', 'bengio'],
-    sources: [arxiv('1409.3215', 'Sutskever et al. (2014)'), arxiv('1409.0473', 'Bahdanau et al. (2014)')],
   },
   {
     id: 'alexa',
@@ -713,6 +760,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Dec',
     era: 'deep',
     tracks: ['vision', 'learning'],
+    cites: ['he2016'],
     title: 'ResNet goes 152 layers deep and beats humans',
     oneLiner: 'Skip connections let networks get much deeper and pass a human benchmark on ImageNet.',
     summary:
@@ -725,7 +773,6 @@ export const historyEvents: readonly AIEvent[] = [
     whyItMatters: 'Skip connections made very deep networks trainable, and today\'s LLMs depend on them.',
     engineer: 'y = F(x) + x. Gradients flow through the identity path unchanged, so the network learns residuals around the identity. Every Transformer block uses x + Attn(LN(x)) and then x + MLP(LN(x)).',
     stat: { value: '3.57%', label: 'top-5 error (human estimate ≈5%)' },
-    sources: [arxiv('1512.03385', 'He et al. (2015)')],
   },
   {
     id: 'openai-founded',
@@ -751,6 +798,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Mar',
     era: 'deep',
     tracks: ['games', 'learning'],
+    cites: ['silver2016'],
     title: 'AlphaGo beats Lee Sedol',
     oneLiner: 'An AI masters Go, a game long thought to need human intuition.',
     summary:
@@ -774,6 +822,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Sep',
     era: 'deep',
     tracks: ['audio'],
+    cites: ['oord2016'],
     title: 'WaveNet makes machines sound human',
     oneLiner: 'Generating speech one audio sample at a time ends the robotic computer voice.',
     summary:
@@ -784,7 +833,6 @@ export const historyEvents: readonly AIEvent[] = [
       'This was the start of synthetic voices that sound real, and of voice cloning.',
     ],
     whyItMatters: 'Generated voices that are hard to tell from real ones go back to this paper.',
-    sources: [arxiv('1609.03499', 'van den Oord et al. (2016)')],
   },
 
   // ───────────── Transformers & Scale ─────────────
@@ -794,6 +842,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Jun',
     era: 'transformers',
     tracks: ['language', 'learning'],
+    cites: ['vaswani2017'],
     title: '"Attention Is All You Need"',
     oneLiner: 'Eight Google researchers introduce the Transformer, the architecture behind essentially every modern AI model.',
     summary:
@@ -811,7 +860,6 @@ export const historyEvents: readonly AIEvent[] = [
     people: ['vaswani'],
     coined: { term: 'Transformer', by: 'Jakob Uszkoreit proposed the name' },
     milestone: true,
-    sources: [arxiv('1706.03762', 'Vaswani et al. (2017)')],
   },
   {
     id: 'rlhf-paper',
@@ -819,6 +867,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Jun',
     era: 'transformers',
     tracks: ['safety', 'learning'],
+    cites: ['christiano2017'],
     title: 'Learning from human preferences (RLHF)',
     oneLiner: 'Instead of writing down a goal, show the AI which of two attempts people prefer.',
     summary:
@@ -830,13 +879,13 @@ export const historyEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'RLHF is the main reason chatbots are helpful and polite rather than raw text predictors.',
     people: ['christiano'],
-    sources: [arxiv('1706.03741', 'Christiano et al. (2017)')],
   },
   {
     id: 'gpt1-bert',
     year: 2018,
     era: 'transformers',
     tracks: ['language'],
+    cites: ['radford2018', 'devlin2019'],
     title: 'GPT-1 and BERT: pre-train, then fine-tune',
     oneLiner: 'Read a huge amount of text first, then specialise. NLP changes almost overnight.',
     summary:
@@ -848,7 +897,6 @@ export const historyEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'This set the recipe: pre-train a big model on the internet, then adapt it. GPT\'s design won out.',
     people: ['radford'],
-    sources: [arxiv('1810.04805', 'Devlin et al. — BERT (2018)')],
   },
   {
     id: 'gpt2',
@@ -856,6 +904,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Feb',
     era: 'transformers',
     tracks: ['language', 'safety'],
+    cites: ['radford2019'],
     title: 'GPT-2: "too dangerous to release"',
     oneLiner: 'OpenAI holds back a text generator over misuse fears, the first staged AI release.',
     summary:
@@ -874,6 +923,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'May',
     era: 'transformers',
     tracks: ['language', 'industry'],
+    cites: ['kaplan2020', 'brown2020'],
     title: 'Scaling laws and GPT-3',
     oneLiner: 'Make it bigger and it gets predictably better. GPT-3 learns tasks from a few examples.',
     summary:
@@ -890,7 +940,6 @@ export const historyEvents: readonly AIEvent[] = [
     people: ['amodei'],
     stat: { value: '175B', label: 'parameters' },
     milestone: true,
-    sources: [arxiv('2001.08361', 'Kaplan et al. — Scaling Laws (2020)'), arxiv('2005.14165', 'Brown et al. — GPT-3 (2020)')],
   },
   {
     id: 'alphafold',
@@ -898,6 +947,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Nov',
     era: 'transformers',
     tracks: ['learning', 'foundations'],
+    cites: ['jumper2021'],
     title: 'AlphaFold 2 largely solves protein folding',
     oneLiner: 'A 50-year-old grand challenge in biology, largely cracked.',
     summary:
@@ -917,6 +967,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Jun',
     era: 'transformers',
     tracks: ['vision', 'learning'],
+    cites: ['ho2020', 'rombach2022'],
     title: 'Diffusion models: images from noise',
     oneLiner: 'Learn to remove noise step by step, and you can generate any image from static.',
     summary:
@@ -928,7 +979,6 @@ export const historyEvents: readonly AIEvent[] = [
     ],
     whyItMatters: 'Nearly every major image and video generator from 2022 to 2025 is a diffusion model.',
     engineer: 'Forward process q(xₜ|xₜ₋₁) adds Gaussian noise. The model ε_θ(xₜ, t) is trained with a simple MSE loss on the noise. Latent diffusion (Rombach et al., 2021) runs it in a compressed latent space, which is what made Stable Diffusion cheap. Classifier-free guidance controls how closely the output follows the prompt.',
-    sources: [arxiv('2006.11239', 'Ho et al. — DDPM (2020)'), arxiv('2112.10752', 'Rombach et al. — Latent Diffusion (2021)')],
   },
   {
     id: 'clip-dalle',
@@ -936,6 +986,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Jan',
     era: 'transformers',
     tracks: ['vision', 'language'],
+    cites: ['radford2021', 'ramesh2021', 'bommasani2021'],
     title: 'CLIP and DALL·E connect words and pictures',
     oneLiner: '"An armchair in the shape of an avocado." AI starts drawing from text.',
     summary:
@@ -948,7 +999,6 @@ export const historyEvents: readonly AIEvent[] = [
     whyItMatters: 'This links language and vision. Today\'s models see, read, draw and talk in one system.',
     people: ['radford', 'amodei'],
     coined: { term: 'foundation model', by: 'Stanford CRFM (Bommasani et al., Aug 2021)' },
-    sources: [arxiv('2103.00020', 'Radford et al. — CLIP (2021)')],
   },
   {
     id: 'copilot',
@@ -956,6 +1006,7 @@ export const historyEvents: readonly AIEvent[] = [
     date: 'Jun',
     era: 'transformers',
     tracks: ['language', 'agents', 'industry'],
+    cites: ['chen2021'],
     title: 'GitHub Copilot: AI writes code',
     oneLiner: 'Autocomplete for programmers, powered by OpenAI Codex.',
     summary:

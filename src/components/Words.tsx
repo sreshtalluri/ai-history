@@ -1,5 +1,6 @@
 import { terms } from '../data';
 import { href } from '../router';
+import { NextStep } from './NextStep';
 import { Section } from './bits';
 
 export function Words() {
@@ -26,6 +27,7 @@ export function Words() {
           </li>
         ))}
       </ol>
+      <NextStep to={{ page: 'journey' }} label="Walk the journey" hint="See each word in the moment it was coined." />
     </Section>
   );
 }

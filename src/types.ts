@@ -1,8 +1,9 @@
 import type { EraId } from './data/eras';
 import type { PersonId } from './data/people';
 import type { TrackId } from './data/tracks';
+import type { CitationId } from './data/citations';
 
-export type { EraId, PersonId, TrackId };
+export type { CitationId, EraId, PersonId, TrackId };
 
 export interface Track {
   label: string;
@@ -67,7 +68,53 @@ export interface AIEvent {
   /** Turning points get a bigger dot and appear in "milestones only". */
   milestone?: boolean;
   verification?: Verification;
+  /** Scholarly references (papers, books, reports) from the bibliography. */
+  cites?: readonly CitationId[];
+  /** Other links: news coverage, encyclopedia pages. */
   sources?: readonly Source[];
+}
+
+export interface Citation {
+  type: 'paper' | 'book' | 'report' | 'web' | 'law';
+  /** APA-style author list, e.g. "Vaswani, A., Shazeer, N., … & Polosukhin, I." */
+  authors: string;
+  year: number;
+  title: string;
+  /** Journal, proceedings, publisher or site. */
+  venue?: string;
+  volume?: string;
+  issue?: string;
+  pages?: string;
+  doi?: string;
+  arxiv?: string;
+  url?: string;
+  /** Exactly where to look in the work: section, figure, equation. */
+  pinpoint?: string;
+}
+
+/** Where an event sits within a big shift. */
+export type ShiftRole = 'old' | 'seed' | 'tip' | 'norm';
+
+export interface ShiftMoment {
+  event: string;
+  role: ShiftRole;
+  note: string;
+}
+
+export interface Shift {
+  id: string;
+  /** e.g. "From rules to learning" */
+  title: string;
+  from: { label: string; example: string };
+  to: { label: string; example: string };
+  span: string;
+  /** The hook question a newcomer would ask. */
+  question: string;
+  plain: string;
+  analogy: string;
+  engineer: string;
+  moments: readonly ShiftMoment[];
+  cites?: readonly CitationId[];
 }
 
 export interface Term {

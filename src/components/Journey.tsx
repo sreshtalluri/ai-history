@@ -1,10 +1,11 @@
 import { useEffect, useMemo, type CSSProperties } from 'react';
-import { eras, eraIds, eventById, events, tracks } from '../data';
+import { eras, eraIds, eventById, events, roleLabels, roleOrder, shifts, shiftsByEvent, tracks } from '../data';
 import { matches, type Filters } from '../filters';
 import type { Lens } from '../prefs';
 import { href, navigate } from '../router';
 import type { AIEvent } from '../types';
 import { FilterBar } from './FilterBar';
+import { CitationList } from './Citations';
 import { PersonPill, SourceList, TrackChip, VerificationBadge } from './bits';
 
 interface Props {
@@ -48,6 +49,9 @@ export function Journey({ id, lens, filters, onFiltersChange }: Props) {
 
   return (
     <div className="journey">
+      <p className="kicker journey-kicker">
+        Step 2 · The journey <span className="muted">· use ← → or the buttons below to move</span>
+      </p>
       <EraRibbon visible={visible} current={current} />
       <FilterBar filters={filters} onChange={onFiltersChange} count={visible.length} total={events.length} />
 
@@ -84,7 +88,7 @@ export function Journey({ id, lens, filters, onFiltersChange }: Props) {
           </a>
         ) : (
           <a className="step-button step-next" href={href({ page: 'frontier' })}>
-            <span className="step-dir">Next →</span>
+            <span className="step-dir">Step 3 →</span>
             <span className="step-title">See today’s frontier labs</span>
           </a>
         )}
@@ -154,6 +158,25 @@ export function EventCard({ event, lens }: { event: AIEvent; lens: Lens }) {
         </div>
       </header>
 
+      {shiftsByEvent.get(event.id)?.map(({ shift, role, note }) => (
+        <a key={shift.id} className={`shift-banner role-${role}`} href={href({ page: 'shifts', id: shift.id })}>
+          <span className="shift-banner-kicker">
+            Big shift {shifts.indexOf(shift) + 1} · {roleLabels[role].label}
+          </span>
+          <span className="shift-banner-title">
+            {shift.from.label} <span aria-hidden="true">→</span> {shift.to.label}
+          </span>
+          <span className="shift-steps" aria-hidden="true">
+            {roleOrder.map((r) => (
+              <span key={r} className={`shift-step${r === role ? ' is-here' : ''}`}>
+                {roleLabels[r].short}
+              </span>
+            ))}
+          </span>
+          <span className="shift-banner-note">{note}</span>
+        </a>
+      ))}
+
       <div className="event-body">
         <div className="event-main">
           <p className="event-summary">{event.summary}</p>
@@ -212,12 +235,24 @@ export function EventCard({ event, lens }: { event: AIEvent; lens: Lens }) {
 
           {event.sources && event.sources.length > 0 && (
             <div>
-              <h2 className="mini-head">{lens === 'engineer' ? 'Papers & sources' : 'Sources'}</h2>
+              <h2 className="mini-head">{event.verification === 'reported' ? 'News coverage' : 'More to explore'}</h2>
               <SourceList sources={event.sources} />
             </div>
           )}
         </aside>
       </div>
+
+      {event.cites && event.cites.length > 0 && (
+        <details className="event-refs" open={lens === 'engineer'} key={`refs-${event.id}-${lens}`}>
+          <summary>
+            <span>📄 Read the original</span>
+            <small>
+              {event.cites.length} source{event.cites.length === 1 ? '' : 's'} · full citation, where to look, links
+            </small>
+          </summary>
+          <CitationList ids={event.cites} />
+        </details>
+      )}
     </article>
   );
 }

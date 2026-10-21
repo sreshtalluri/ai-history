@@ -7,22 +7,26 @@ export type Route =
   | { page: 'people'; id?: string }
   | { page: 'words' }
   | { page: 'frontier' }
-  | { page: 'questions' };
+  | { page: 'questions' }
+  | { page: 'shifts'; id?: string }
+  | { page: 'sources' };
 
 export type PageName = Route['page'];
 
-const simplePages = ['timeline', 'words', 'frontier', 'questions'] as const;
+const simplePages = ['timeline', 'words', 'frontier', 'questions', 'sources'] as const;
 
 export function parseHash(hash: string): Route {
   const [page, id] = hash.replace(/^#\/?/, '').split('/');
-  if (page === 'journey' || page === 'people') return id ? { page, id: decodeURIComponent(id) } : { page };
+  if (page === 'journey' || page === 'people' || page === 'shifts') {
+    return id ? { page, id: decodeURIComponent(id) } : { page };
+  }
   const simple = simplePages.find((p) => p === page);
   return simple ? { page: simple } : { page: 'home' };
 }
 
 export function href(route: Route): string {
   if (route.page === 'home') return '#/';
-  if ((route.page === 'journey' || route.page === 'people') && route.id) {
+  if ((route.page === 'journey' || route.page === 'people' || route.page === 'shifts') && route.id) {
     return `#/${route.page}/${encodeURIComponent(route.id)}`;
   }
   return `#/${route.page}`;

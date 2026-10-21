@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseHash, href } from '../router';
-import { eras, eraIds, eventById, events, labs, openProblems, people, personIds, terms } from './index';
+import { probabilities } from '../components/ProbabilityDemo';
+import { citationIds, citations, eras, eraIds, eventById, events, labs, openProblems, people, personIds, shifts, terms } from './index';
 
 describe('timeline data', () => {
   it('has unique, URL-safe event ids', () => {
@@ -68,6 +69,62 @@ describe('cross references', () => {
   });
 });
 
+describe('big shifts', () => {
+  it('ties every shift to real events covering old way → tipping point → new normal', () => {
+    for (const shift of shifts) {
+      for (const m of shift.moments) expect(eventById.has(m.event), `${shift.id} → ${m.event}`).toBe(true);
+      for (const role of ['old', 'seed', 'tip', 'norm'] as const) {
+        expect(shift.moments.some((m) => m.role === role), `${shift.id} missing ${role}`).toBe(true);
+      }
+    }
+  });
+
+  it('has unique shift ids', () => {
+    expect(new Set(shifts.map((s) => s.id)).size).toBe(shifts.length);
+  });
+});
+
+describe('citations', () => {
+  it('cites a primary source for every turning point', () => {
+    for (const e of events.filter((e) => e.milestone && e.year < 2026)) {
+      expect(e.cites?.length ?? 0, e.id).toBeGreaterThan(0);
+    }
+  });
+
+  it('gives every citation a way to find it', () => {
+    for (const id of citationIds) {
+      const c = citations[id];
+      const findable = 'doi' in c || 'arxiv' in c || 'url' in c || c.type === 'book';
+      expect(findable, id).toBe(true);
+    }
+  });
+
+  it('uses every citation somewhere on the site', () => {
+    const used = new Set([...events.flatMap((e) => e.cites ?? []), ...shifts.flatMap((s) => s.cites ?? [])]);
+    const orphans = citationIds.filter((id) => !used.has(id));
+    expect(orphans).toEqual([]);
+  });
+});
+
+describe('probability demo', () => {
+  const choices = [
+    { word: 'a', logit: 2 },
+    { word: 'b', logit: 1 },
+    { word: 'c', logit: 0 },
+  ];
+
+  it('is greedy (deterministic) at temperature 0', () => {
+    expect(probabilities(choices, 0)).toEqual([1, 0, 0]);
+  });
+
+  it('forms a distribution that flattens as temperature rises', () => {
+    const cool = probabilities(choices, 0.5);
+    const hot = probabilities(choices, 2);
+    for (const p of [cool, hot]) expect(p.reduce((a, b) => a + b, 0)).toBeCloseTo(1);
+    expect(cool[0]!).toBeGreaterThan(hot[0]!);
+  });
+});
+
 describe('router', () => {
   it('round-trips routes', () => {
     for (const route of [
@@ -75,6 +132,8 @@ describe('router', () => {
       { page: 'journey', id: 'transformer' },
       { page: 'people', id: 'turing' },
       { page: 'frontier' },
+      { page: 'shifts', id: 'certain-to-probable' },
+      { page: 'sources' },
     ] as const) {
       expect(parseHash(href(route))).toEqual(route);
     }
